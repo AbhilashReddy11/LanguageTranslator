@@ -1,0 +1,49 @@
+﻿@model YourProjectName.Models.TranslationModel
+
+@using (Html.BeginForm("Translate", "Home", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <div>
+        @Html.LabelFor(model => model.InputText)
+        @Html.TextAreaFor(model => model.InputText, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.InputText)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.InputLanguage)
+        @Html.DropDownListFor(model => model.InputLanguage, GetLanguageOptions(), "-- Select Input Language --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.InputLanguage)
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.OutputLanguage)
+        @Html.DropDownListFor(model => model.OutputLanguage, GetLanguageOptions(), "-- Select Output Language --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.OutputLanguage)
+    </div>
+
+    <div>
+        <input type="submit" value="Translate" class="btn btn-primary" />
+    </div>
+
+    <div>
+        @Html.LabelFor(model => model.TranslatedText)
+        @Html.TextAreaFor(model => model.TranslatedText, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+}
+
+@functions
+{
+    private List<SelectListItem> GetLanguageOptions()
+    {
+        var languageOptions = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "en", Text = "English" },
+            new SelectListItem { Value = "fr", Text = "French" },
+            new SelectListItem { Value = "es", Text = "Spanish" },
+            // Add more language options as needed
+        };
+
+        return languageOptions;
+    }
+}
